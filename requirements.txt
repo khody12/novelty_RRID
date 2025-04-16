@@ -1,0 +1,13 @@
+sentence-transformers==2.2.2
+faiss-cpu
+pandas
+numpy
+requests
+tqdm
+scikit-learn
+torch
+transformers==4.25.1
+openai
+python-dotenv
+pyairtable
+huggingface-hub==0.10.1
