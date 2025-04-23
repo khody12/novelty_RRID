@@ -11,3 +11,4 @@ openai
 python-dotenv
 pyairtable
 huggingface-hub==0.10.1
+scholarly

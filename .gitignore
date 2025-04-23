@@ -1,2 +1,13 @@
 venv/
 .env
+
+*.faiss
+*.bin
+*.pt
+*.h5
+
+.vscode/
+.idea/
+
+
+.DS_Store

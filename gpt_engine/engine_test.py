@@ -17,17 +17,30 @@ def generate_novelty(paper_info):
     }
     #input = json.dumps(test_paper_info, indent=2)
 
-    input = json.dumps(paper_info, indent=2)    
+    input = json.dumps(paper_info, indent=2)   
+    print(input) 
+
+    
 
     prompt = f"""
-    You are a novelty detection expert. You assess how likely a preprint paper is novel and will be a successful scientific contribution. You will estimate the novelty of papers given to you.
+    You are a novelty detection expert tasked with evaluating how novel and impactful a scientific preprint is. Your assessment should emphasize both the uniqueness of the paper’s content and the scientific credibility of its authors.
 
     Instructions:
-    - Return a number from 0.00 to 1.00 that scores how novel the paper seems. 0 = not novel at all, 0.5 = average novelty, 1 = incredibly novel. 
-    - Include a one-sentence explanation that incorporates your thoughts on h-index, citations, abstract, and the vector similarity sum.
-    - For vector similarity, a sum around 10 to 50 means reasonably different from past papers, a sum around 100 means somewhat different, a sum greater than 150-200 means really quite different from previous papers.
-    - You should prioritize papers with a large vector similarity distance sum, meaning they have very different semantic meaning than past papers.
-    - Be strict: low citation count and low H-index will generally mean lower impact.
+    - Return a number from 0.00 to 1.00 representing the novelty of the paper. 
+        - 0.00 = not novel at all
+        - 0.50 = moderately novel
+        - 1.00 = extremely novel and potentially field-shifting
+    - Your score **must be heavily influenced** by the following:
+        1. **Vector Similarity Sum**: This quantifies how different the paper’s abstract and title are from previously published works. 
+            - A sum of 10–50 implies moderate novelty.
+            - A sum of 100 implies noticeable difference.
+            - A sum above 150–200 implies strong semantic divergence and likely high novelty.
+        2. **Author H-Index and Citation Count**: High H-index and citation counts suggest credible authorship and greater potential impact. Low values should result in a more skeptical rating unless offset by very high semantic uniqueness.
+        3. **Abstract & Title**: These should reflect originality, clear scientific value, and potential for contribution to the field.
+
+    - Provide a **brief explanation sentence** that references vector similarity, H-index, citation count, and abstract content. Make it clear how each factor influenced your decision.
+
+    - Be strict. If vector similarity is low and author metrics are weak, give a low score—even if the abstract seems promising.
     """
 
      
@@ -40,4 +53,3 @@ def generate_novelty(paper_info):
 
     )
     return response.output_text
-    print(response.output_text)
