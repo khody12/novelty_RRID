@@ -40,8 +40,6 @@ def find_similarity(title, abstract):
     k = 100
     D, I = index.search(query_embedding, k)
 
-    print(f"\n🔍 Top {k} most similar papers:\n")
-
     sum_of_similarity = 0
     for rank, (i, dist) in enumerate(zip(I[0], D[0]), 1):
         paper = metadata[i]
